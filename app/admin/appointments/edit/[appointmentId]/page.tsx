@@ -35,7 +35,7 @@ const AppointmentEdit: React.FC<AppointmentEditPageProps> = ({ params }) => {
   const [isDeleting, setDeleting] = useState<boolean>(false);
 
   const router = useRouter();
-  const token = getCookie('token')?.toString();
+  const token = getCookie("token")?.toString();
 
   const [appointment, setAppointment]: any = useState({});
   const [clients, setClients]: any = useState([]);
@@ -55,7 +55,8 @@ const AppointmentEdit: React.FC<AppointmentEditPageProps> = ({ params }) => {
   const getAppointment = async (appoinmentsId: string) => {
     try {
       const response = await axios.get(
-        `${process.env.NEXT_PUBLIC_BACKEND_API_URL}api/appointments/${appoinmentsId}`, {
+        `${process.env.NEXT_PUBLIC_BACKEND_API_URL}api/appointments/${appoinmentsId}`,
+        {
           headers: {
             Accept: "application/json",
             "Content-Type": "application/json",
@@ -70,23 +71,22 @@ const AppointmentEdit: React.FC<AppointmentEditPageProps> = ({ params }) => {
       }
     } catch (e: any) {
       console.log(e.toString());
-      toast.error('خطا در برقراری ارتباط')
+      toast.error("خطا در برقراری ارتباط");
     } finally {
       setIsLoading(false);
     }
   };
 
   const handleSubmit = async () => {
-
     let doctorId;
-    doctorsOptions.map((doctor : any) => 
-      appointment.doctor === doctor.label ? doctorId = doctor.value : null
+    doctorsOptions.map((doctor: any) =>
+      appointment.doctor === doctor.label ? (doctorId = doctor.value) : null
     );
 
     let clientId;
-    clientsOptions.map((client : any) => 
-      appointment.client === client.label ? clientId = client.value : null
-    )
+    clientsOptions.map((client: any) =>
+      appointment.client === client.label ? (clientId = client.value) : null
+    );
 
     try {
       setIsLoading(true);
@@ -100,7 +100,8 @@ const AppointmentEdit: React.FC<AppointmentEditPageProps> = ({ params }) => {
           status: selectedStatus || appointment.status,
           amount_status: amountStatus || appointment.payment_status,
           time: time || appointment.time,
-        }, {
+        },
+        {
           headers: {
             Accept: "application/json",
             "Content-Type": "application/json",
@@ -110,11 +111,11 @@ const AppointmentEdit: React.FC<AppointmentEditPageProps> = ({ params }) => {
       );
       console.log(response.data);
       if (response.status === 200) {
-        toast.success('نوبت با موفقت ویرایش شد')
+        toast.success("نوبت با موفقت ویرایش شد");
         router.push("/admin/appointments");
       }
     } catch (error: any) {
-      toast.success('خطا در ویرایش نوبت')
+      toast.success("خطا در ویرایش نوبت");
       console.log(error, "CLIENT_EDIT_ERROR");
       setErrors(error.response.data.errors);
       console.log(error);
@@ -123,24 +124,27 @@ const AppointmentEdit: React.FC<AppointmentEditPageProps> = ({ params }) => {
   };
 
   const handleDelete = () => {
-    setIsLoading(true);
+    setDeleting(true);
     try {
-      axios.delete(`${process.env.NEXT_PUBLIC_BACKEND_API_URL}api/appointments/${params.appointmentId}`, {
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-      })
-      toast.success('نوبت با موفقیت حذف شد')
-      router.push('/admin/appointments')
+      axios.delete(
+        `${process.env.NEXT_PUBLIC_BACKEND_API_URL}api/appointments/${params.appointmentId}`,
+        {
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      toast.success("نوبت با موفقیت حذف شد");
+      router.push("/admin/appointments");
     } catch (error) {
-      toast.error('خطا در حذف نوبت')
-      console.log(error, 'DELETE_APPOINTMENT_ERROR')
+      toast.error("خطا در حذف نوبت");
+      console.log(error, "DELETE_APPOINTMENT_ERROR");
     } finally {
-      setIsLoading(false)
+      setDeleting(false);
     }
-  }
+  };
 
   const renderErrors = (field: any) =>
     errors?.[field]?.map((error: any, index: any) => (
@@ -151,13 +155,16 @@ const AppointmentEdit: React.FC<AppointmentEditPageProps> = ({ params }) => {
 
   const getDoctors = async () => {
     try {
-      const response = await axios.get(`${process.env.NEXT_PUBLIC_BACKEND_API_URL}api/doctors`, {
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-      });
+      const response = await axios.get(
+        `${process.env.NEXT_PUBLIC_BACKEND_API_URL}api/doctors`,
+        {
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
       if (response.status == 200) {
         setDoctors(response.data);
       } else {
@@ -170,13 +177,16 @@ const AppointmentEdit: React.FC<AppointmentEditPageProps> = ({ params }) => {
 
   const getClients = async () => {
     try {
-      const response = await axios.get(`${process.env.NEXT_PUBLIC_BACKEND_API_URL}api/clients`, {
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-      });
+      const response = await axios.get(
+        `${process.env.NEXT_PUBLIC_BACKEND_API_URL}api/clients`,
+        {
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
       if (response.status == 200) {
         setClients(response.data);
       } else {
@@ -230,7 +240,7 @@ const AppointmentEdit: React.FC<AppointmentEditPageProps> = ({ params }) => {
   };
 
   if (pageLoading) {
-    return <div>Loading...</div>
+    return <div>Loading...</div>;
   }
 
   return (
@@ -325,24 +335,24 @@ const AppointmentEdit: React.FC<AppointmentEditPageProps> = ({ params }) => {
           </div>
         </div>
         <div className="flex gap-3">
-        <div
-          onClick={handleSubmit}
-          className={`
+          <div
+            onClick={handleSubmit}
+            className={`
                   mt-9 w-52 cursor-pointer text-center rounded-md py-2 text-white
                   ${isLoading ? "bg-blue-400" : "bg-blue-700"}
               `}
-        >
-          ویرایش نوبت
-        </div>
-        <div
-          onClick={() => setDialogOpen(true)}
-          className={`
+          >
+            ویرایش نوبت
+          </div>
+          <div
+            onClick={() => setDialogOpen(true)}
+            className={`
                   mt-9 w-52 cursor-pointer text-center rounded-md py-2 text-white
                   ${isLoading ? "bg-rose-400" : "bg-rose-700"}
               `}
-        >
-          حذف نوبت
-        </div>
+          >
+            حذف نوبت
+          </div>
         </div>
         <div className="mt-9 text-red-600">
           <p>{renderErrors("doctor")}</p>
@@ -354,7 +364,7 @@ const AppointmentEdit: React.FC<AppointmentEditPageProps> = ({ params }) => {
           <p>{renderErrors("amount_status")}</p>
         </div>
       </div>
-      <ConfirmDialog 
+      <ConfirmDialog
         isLoading={isDeleting}
         onCancel={() => setDialogOpen(false)}
         onConfirm={handleDelete}

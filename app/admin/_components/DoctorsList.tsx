@@ -12,10 +12,7 @@ import { BeatLoader } from "react-spinners";
 export const DoctorsList = () => {
   const [doctors, setDoctors]: any = useState([]);
   const [isLoading, setIsLoading] = useState(false);
-  const [isDialogOpen, setDialogOpen] = useState<boolean>(false);
-  const [isDeleting, setDeleting] = useState<boolean>(false);
 
-  const router = useRouter();
   const token = getCookie("token")?.toString();
 
   const getDoctors = async () => {
@@ -44,19 +41,6 @@ export const DoctorsList = () => {
     getDoctors();
   }, []);
 
-  const handleDeleteClick = () => {
-    setDialogOpen(true);
-  };
-
-  const handleDelete = async (doctorId: any) => {
-    try {
-      await axios.delete(`${process.env.NEXT_PUBLIC_BACKEND_API_URL}api/doctors/${doctorId}`);
-    } catch (error: any) {
-      console.log(error.toString());
-    }
-    getDoctors();
-  };
-
   if (isLoading) {
     return (
       <div>
@@ -77,7 +61,6 @@ export const DoctorsList = () => {
         <div className="w-[15%] text-right font-bold">شاره تلفن</div>
         <div className="w-[15%] text-center font-bold">پنل مشاور</div>
         <div className="w-[15%] text-center font-bold">ویرایش</div>
-        <div className="w-[15%] text-center font-bold">حذف</div>
       </div>
       <div className="">
         {doctors.map((doctor: any) => (
@@ -108,22 +91,9 @@ export const DoctorsList = () => {
                 />
               </Link>
             </div>
-            <div className="w-[15%] flex justify-center items-center">
-              <MdDelete 
-                size={25}
-                className="text-rose-500 cursor-pointer"
-                onClick={handleDeleteClick}
-              />
-            </div>
           </div>
         ))}
       </div>
-      <ConfirmDialog 
-        isLoading={isDeleting}
-        onCancel={() => setDialogOpen(false)}
-        onConfirm={() => handleDelete}
-        open={isDialogOpen}
-      />
     </div>
   );
 };

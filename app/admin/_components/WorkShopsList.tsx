@@ -1,4 +1,4 @@
-'use client';
+"use client";
 
 import axios from "axios";
 import { getCookie } from "cookies-next";
@@ -6,75 +6,77 @@ import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import { BeatLoader } from "react-spinners";
 
-const ClassesList = () => {
+const WorkShopsList = () => {
   const [classes, setClasses]: any = useState([]);
   const [isLoading, setIsLoading] = useState(false);
 
-  const [searchTerm, setSearchTerm] = useState('');
+  const [searchTerm, setSearchTerm] = useState("");
   const [filterdClasses, setFilterdClasses] = useState([]);
 
   const router = useRouter();
   const token = getCookie("token")?.toString();
 
   const handleSearch = (event: any) => {
-   const term = event.target.value;
-   setSearchTerm(term);
+    const term = event.target.value;
+    setSearchTerm(term);
 
-   const filterd = classes.filter((classes: any) => 
-     classes.title.includes(term)
-   );
+    const filterd = classes.filter((classes: any) =>
+      classes.title.includes(term)
+    );
 
-   setFilterdClasses(filterd);
- }
+    setFilterdClasses(filterd);
+  };
 
- useEffect(() => {
-   setIsLoading(true);
-   const getClasses = async () => {
-     try {
-       const response = await axios.get(`${process.env.NEXT_PUBLIC_BACKEND_API_URL}api/classes`, {
-         headers: {
-           Accept: "application/json",
-           "Content-Type": "application/json",
-           Authorization: `Bearer ${token}`,
-         },
-       });
- 
-       if (response.status === 401) {
-         router.push("/login");
-       }
- 
-       if (response.status == 200) {
-         setClasses(response.data);
-         setFilterdClasses(response.data);
-       } else {
-         console.log(response.data);
-       }
-     } catch (e: any) {
-       console.log(e.toString());
-     } finally {
-       setIsLoading(false);
-     }
-   };
-   getClasses();
- }, []);
+  useEffect(() => {
+    setIsLoading(true);
+    const getClasses = async () => {
+      try {
+        const response = await axios.get(
+          `${process.env.NEXT_PUBLIC_BACKEND_API_URL}api/work-shops`,
+          {
+            headers: {
+              Accept: "application/json",
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
 
- if (isLoading) {
-   return (
-     <div>
-       <BeatLoader
-         className="text-center mt-20 flex items-center justify-center"
-         color={"#3fb2f2"}
-         size={30}
-       />
-     </div>
-   );
- }
+        if (response.status === 401) {
+          router.push("/login");
+        }
 
+        if (response.status == 200) {
+          setClasses(response.data);
+          setFilterdClasses(response.data);
+        } else {
+          console.log(response.data);
+        }
+      } catch (e: any) {
+        console.log(e.toString());
+      } finally {
+        setIsLoading(false);
+      }
+    };
+    getClasses();
+  }, []);
+
+  if (isLoading) {
+    return (
+      <div>
+        <BeatLoader
+          className="text-center mt-20 flex items-center justify-center"
+          color={"#3fb2f2"}
+          size={30}
+        />
+      </div>
+    );
+  }
   return (
     <>
       <div className="flex flex-col lg:flex-row gap-4 lg:gap-0 lg:items-center lg:justify-between">
         <div className="flex items-center gap-3">
-          <h2 className="font-bold text-xl">کلاس ها</h2>
+          <h2 className="font-bold text-xl">کارگاه ها</h2>
           -
           <input
             type="text"
@@ -85,10 +87,10 @@ const ClassesList = () => {
           />
         </div>
         <div
-          onClick={() => router.push("/admin/classes/add")}
+          onClick={() => router.push("/admin/work-shops/add")}
           className="px-12 py-2 bg-cyan-600 rounded-md text-white text-center cursor-pointer"
         >
-          افزودن کلاس
+          افزودن کارگاه
         </div>
       </div>
       <div className="w-full flex flex-col md:max-h-[650px] max-h-[450px] h-fit pr-6 pl-2 mt-6">
@@ -101,7 +103,7 @@ const ClassesList = () => {
         >
           <div className="w-[5%] text-right text-sm md:font-bold">#</div>
           <div className="w-[15%] text-right text-sm md:font-bold">
-            عنوان کلاس
+            عنوان کارگاه
           </div>
           <div className="w-[15%] text-right text-sm md:font-bold">
             تاریخ شروع
@@ -109,7 +111,9 @@ const ClassesList = () => {
           <div className="w-[15%] text-right text-sm md:font-bold">
             تاریخ پایان
           </div>
-          <div className="w-[15%] text-right text-sm md:font-bold">روز برگزاری</div>
+          <div className="w-[15%] text-right text-sm md:font-bold">
+            روز برگزاری
+          </div>
           <div className="w-[15%] text-right text-sm md:font-bold">ساعت</div>
         </div>
         <div
@@ -135,4 +139,4 @@ const ClassesList = () => {
   );
 };
 
-export default ClassesList;
+export default WorkShopsList;

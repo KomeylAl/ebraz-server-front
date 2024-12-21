@@ -8,19 +8,20 @@ import DatePicker from "react-multi-date-picker";
 import persian from "react-date-object/calendars/persian";
 import fa from "react-date-object/locales/persian_fa";
 import { getCookie } from "cookies-next";
+import toast from "react-hot-toast";
 
 const AddClient = () => {
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
   const [address, setAddress] = useState("");
-  const [birthDate, setBirthDate] = useState('');
+  const [birthDate, setBirthDate] = useState("");
 
-  const [errors, setErrors] : any = useState();
+  const [errors, setErrors]: any = useState();
 
   const [isLoading, setIsLoading] = useState(false);
 
   const router = useRouter();
-  const token = getCookie('token')?.toString();
+  const token = getCookie("token")?.toString();
 
   const handleSubmit = async () => {
     try {
@@ -28,40 +29,48 @@ const AddClient = () => {
       const response = await axios.post(
         `${process.env.NEXT_PUBLIC_BACKEND_API_URL}api/clients/add`,
         {
-          'name': name,
-          'phone': phone,
-          'address': address,
-          'birth_date': birthDate,
-        }, {
+          name: name,
+          phone: phone,
+          address: address,
+          birth_date: birthDate,
+        },
+        {
           headers: {
             Accept: "application/json",
             "Content-Type": "application/json",
             Authorization: `Bearer ${token}`,
-          },}
-      )
-      console.log(response.data)
+          },
+        }
+      );
+      console.log(response.data);
       if (response.status === 201) {
-        router.push('/admin/clients')
+        toast.success("مراجع با موفقیت افزوده شد");
+        router.push("/admin/clients");
       }
     } catch (error: any) {
       console.log(error, "CLIENT_ADD_ERROR");
-      setErrors(error.response.data.errors)
-      console.log(error)
-      setIsLoading(false)
+      toast.error("خطا در افزودن مراجع");
+      setErrors(error.response.data.errors);
+      console.log(error);
+      setIsLoading(false);
     }
-  }
+  };
 
   const renderErrors = (field: any) =>
     errors?.[field]?.map((error: any, index: any) => (
       <div key={index} className="text-red-600">
         {error}
       </div>
-  ));
+    ));
 
   const handleBirthDateChange = (value: any) => {
-    console.log(value.toDate().toISOString().slice(0, 19).replace('T', ' ').slice(0, 10))
-    setBirthDate(value.toDate().toISOString().slice(0, 19).replace('T', ' ').slice(0, 10))
-  }
+    console.log(
+      value.toDate().toISOString().slice(0, 19).replace("T", " ").slice(0, 10)
+    );
+    setBirthDate(
+      value.toDate().toISOString().slice(0, 19).replace("T", " ").slice(0, 10)
+    );
+  };
 
   return (
     <div className="w-full h-full flex flex-col">

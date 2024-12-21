@@ -8,6 +8,7 @@ import persian from "react-date-object/calendars/persian";
 import DatePicker from "react-multi-date-picker";
 import fa from "react-date-object/locales/persian_fa";
 import { getCookie } from "cookies-next";
+import { getFormattedDate } from "@/lib/functions";
 
 export const AppinmentsList = () => {
   const [appointments, setAppointments]: any = useState([]);
@@ -23,14 +24,14 @@ export const AppinmentsList = () => {
     return jalali_date;
   }
 
-  const getFormattedDate = () => {
-    const today = new Date();
-    const day = String(today.getDate()).padStart(2, "0"); // روز با پیشوند صفر
-    const month = String(today.getMonth() + 1).padStart(2, "0"); // ماه با پیشوند صفر (ماه‌ها از 0 شروع می‌شوند)
-    const year = today.getFullYear(); // سال
+  // const getFormattedDate = () => {
+  //   const today = new Date();
+  //   const day = String(today.getDate()).padStart(2, "0"); // روز با پیشوند صفر
+  //   const month = String(today.getMonth() + 1).padStart(2, "0"); // ماه با پیشوند صفر (ماه‌ها از 0 شروع می‌شوند)
+  //   const year = today.getFullYear(); // سال
 
-    return `${year}-${month}-${day}`;
-  };
+  //   return `${year}-${month}-${day}`;
+  // };
 
   const today = getFormattedDate();
   

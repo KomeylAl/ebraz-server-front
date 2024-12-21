@@ -8,6 +8,7 @@ import persian from "react-date-object/calendars/persian";
 import persian_fa from "react-date-object/locales/persian_fa";
 import { DateObject } from "react-multi-date-picker";
 import { getCookie } from "cookies-next";
+import { getFormattedDate } from "@/lib/functions";
 
 const ToDaysList = () => {
   const [appointments, setAppointments] = useState([]);
@@ -26,9 +27,10 @@ const ToDaysList = () => {
 
     const getAppointments = async (date: any) => {
       setIsLoading(true);
+      const today = getFormattedDate();
       try {
         const response = await axios.get(
-          `${process.env.NEXT_PUBLIC_BACKEND_API_URL}api/appointments/date/${date}`, {
+          `${process.env.NEXT_PUBLIC_BACKEND_API_URL}api/appointments/date/${today}`, {
             headers: {
               "Accept": "application/json",
               "Content-Type": "application/json",
@@ -63,10 +65,8 @@ const ToDaysList = () => {
       <div className="w-full flex flex-col md:max-h-[650px] max-h-[450px] h-fit pr-6 pl-2 mt-6">
         <div className="
             flex items-center 
-            md:justify-between py-4 border-b 
-            border-gray-200 overflow-x-scroll gap-28
-            md:overflow-x-hidden
-            md:gap-0
+            justify-between p-4 border-b 
+            border-gray-200
           ">
           <div className="w-[5%] text-right font-bold">#</div>
           <div className="w-[15%] text-right font-bold">مراجع</div>
@@ -75,17 +75,14 @@ const ToDaysList = () => {
           <div className="w-[15%] text-right font-bold">وضعیت</div>
           <div className="w-[15%] text-right font-bold">پرداخت</div>
         </div>
-        <div className="overflow-y-scroll overflow-x-scroll
-           md:overflow-x-hidde md:overflow-x-hidden">
+        <div className="">
           {appointments.map((appointment: any) => (
             <div
               key={appointment.referral_id}
               onClick={() =>
                 router.push(`/appointments/edit/${appointment.referral_id}`)
               }
-              className="flex items-center 
-            md:justify-between gap-28
-            border-gray-200 md:gap-0 py-4 hover:bg-gray-100 cursor-pointer"
+              className="flex items-center justify-between md:gap-0 p-4 bg-white rounded-md mt-3 shadow-md hover:bg-gray-100 cursor-pointer border border-cyan-400"
             >
               <div className="w-[5%] text-right">{appointment.referral_id}</div>
               <div className="w-[15%] text-right">{appointment.client}</div>
