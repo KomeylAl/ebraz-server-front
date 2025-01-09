@@ -80,7 +80,7 @@ const ToDaysList = () => {
             <div
               key={appointment.referral_id}
               onClick={() =>
-                router.push(`/appointments/edit/${appointment.referral_id}`)
+                router.push(`/admin/appointments/edit/${appointment.referral_id}`)
               }
               className="flex items-center justify-between md:gap-0 p-4 bg-white rounded-md mt-3 shadow-md hover:bg-gray-100 cursor-pointer border border-cyan-400"
             >

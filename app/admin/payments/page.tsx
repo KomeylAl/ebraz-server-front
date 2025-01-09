@@ -11,7 +11,7 @@ const Payments = () => {
           <div className="flex items-center justify-between">
             <h2 className="font-bold text-xl">پرداخت ها</h2>
             <Link
-              href='/'
+              href='/admin/invoices'
               className="px-12 py-2 bg-cyan-600 rounded-md text-white text-center cursor-pointer"
             >
               صدور فاکتور

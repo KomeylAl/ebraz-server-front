@@ -51,28 +51,20 @@ const Navbar = ({ user }: NavbarProps) => {
       icon: <MdClass />,
     },
     {
-      title: "مدیران سایت",
-      link: "/admin/admins",
-      access: "boss",
-      icon: <FiList />,
-    },
-    {
       title: "پنل پیامک",
       link: "/admin/sms-panel",
       access: "admin",
       icon: <BiEnvelope />,
     },
+    {
+      title: "مدیران سایت",
+      link: "/admin/admins",
+      access: "boss",
+      icon: <FiList />,
+    }
   ];
 
-  const pathName = usePathname();
-
-  if (!user) {
-    return (
-      <div>
-        احراز هویت انجام نشد دوباره تلاش کنید
-      </div>
-    )
-  }
+  const pathName = usePathname(); 
 
   return (
     <div className="flex flex-col gap-4 w-full">
