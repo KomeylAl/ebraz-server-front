@@ -14,7 +14,7 @@ const Payments = () => {
               href='/admin/invoices'
               className="px-12 py-2 bg-cyan-600 rounded-md text-white text-center cursor-pointer"
             >
-              صدور فاکتور
+              فاکتور ها
             </Link>
           </div>
           <PaymentsList />
