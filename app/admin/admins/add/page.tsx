@@ -9,17 +9,29 @@ import persian from "react-date-object/calendars/persian";
 import fa from "react-date-object/locales/persian_fa";
 import { getCookie } from "cookies-next";
 import toast from "react-hot-toast";
+import ReactSelect from "react-select";
 
 const AddAdmin = () => {
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
-  const [role, setRole] = useState("");
+  const [selectedRole, setSelectedRole]: any = useState();
   const [birthDate, setBirthDate] = useState('');
   const [password, setPassword] = useState('');
 
   const [errors, setErrors] : any = useState();
 
   const [isLoading, setIsLoading] = useState(false);
+
+  const roleOptions = [
+    { value: "receptionist", label: "پذیرش" },
+    { value: "manager", label: "مدیریت" },
+    { value: "author", label: "نویسنده وب سایت" },
+    { value: "accountant", label: "حسابداری" },
+  ];
+  
+  const handleRoleChange = (selectedOption: any) => {
+    setSelectedRole(selectedOption.value);
+  };
 
   const router = useRouter();
   const userToken = getCookie("token");
@@ -31,7 +43,7 @@ const AddAdmin = () => {
         {
           'name': name,
           'phone': phone,
-          'role': role,
+          'role': selectedRole,
           'birth_date': birthDate || null,
           'password' : password
         },
@@ -83,10 +95,12 @@ const AddAdmin = () => {
           </div>
           <div className="w-full">
             <label>سِمت</label>
-            <input
-              onChange={(e) => setRole(e.target.value)}
-              type="text"
-              className="w-full bg-white py-2 rounded-md shadow-sm px-2 mt-2"
+            <ReactSelect
+              className="mt-2 focus:ring-black focus:border-black"
+              placeholder="انتخاب سمت"
+              defaultInputValue={selectedRole}
+              onChange={handleRoleChange}
+              options={roleOptions}
             />
           </div>
         </div>

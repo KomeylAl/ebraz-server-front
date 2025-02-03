@@ -8,13 +8,11 @@ import { getCookie } from "cookies-next";
 import { MdDelete, MdEditSquare } from "react-icons/md";
 import Link from "next/link";
 import ConfirmDialog from "@/utils/ui/CustomDialog";
+import { IoDocument } from "react-icons/io5";
 
 export const ClientsList = () => {
   const [clients, setClients]: any = useState([]);
   const [isLoading, setIsLoading] = useState(false);
-
-  const [isDeleting, setDeleting] = useState<boolean>(false);
-  const [isDialogOpen, setDialogOpen] = useState<boolean>(false);
 
   const [searchTerm, setSearchTerm] = useState("");
   const [filterdClients, setFilterdClients] = useState([]);
@@ -143,19 +141,31 @@ export const ClientsList = () => {
           <div className="w-[15%] text-right text-sm md:font-bold">
             تاریخ تولد
           </div>
+          <div className="w-[15%] text-center text-sm md:font-bold">پرونده پزشکی</div>
           <div className="w-[15%] text-center text-sm md:font-bold">ویرایش</div>
         </div>
         <div className="md:overflow-x-hidden">
-          {filterdClients.map((client: any) => (
+          {filterdClients.map((client: any, index: any) => (
             <div
               key={client.id}
               className="flex items-center md:justify-between py-4 gap-28 md:gap-0 p-4 bg-white rounded-md shadow-md mt-3"
             >
-              <div className="w-[5%] text-right">{client.id}</div>
+              <div className="w-[5%] text-right">{index + 1}</div>
               <div className="w-[15%] text-right">{client.name}</div>
               <div className="w-[15%] text-right">{client.phone}</div>
               <div className="w-[15%] text-right">
                 {dateConvert(client.birth_date)}
+              </div>
+              <div className="w-[15%]">
+                <Link
+                  className="flex items-center justify-center"
+                  href={`/admin/clients/record/${client.id}`}
+                >
+                  <IoDocument
+                    size={25}
+                    className="text-blue-500 cursor-pointer"
+                  />
+                </Link>
               </div>
               <div className="w-[15%]">
                 <Link

@@ -5,6 +5,7 @@ import { ClientsList } from "./_components/ClientsList";
 import Header from "./_components/Header";
 import { Tab, Tabs } from "./_components/Tabs";
 import ToDaysList from "./_components/TodaysList";
+// import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 
 export default function AdminHome() {
 
@@ -21,20 +22,28 @@ export default function AdminHome() {
               </Link>
             </div>
           </div>
-          <div className="mt-12">
+          <div className="mt-12"> 
             <Tabs>
-              <Tab label="نوبت های امروز">
+              <Tab label="نوبت های امروز" defaultTab>
                 <div className="py-4">
                   <ToDaysList />
                 </div>
               </Tab>
-              <Tab label="مراجعان">
+              <Tab label="مراجعان" defaultTab={false}>
                 <div className="py-4">
                   <ClientsList />
                 </div>
               </Tab>
             </Tabs>
           </div>
+          {/* <Tabs dir="rtl">
+            <TabsList defaultValue='today' dir="rtl">
+              <TabsTrigger value="today">نوبت های امروز</TabsTrigger>
+              <TabsTrigger value="clients">مراجعان</TabsTrigger>
+            </TabsList>
+            <TabsContent value="today"><ToDaysList /></TabsContent>
+            <TabsContent value="clients"><ClientsList /></TabsContent>
+          </Tabs> */}
         </div>
       </div>
     </div>

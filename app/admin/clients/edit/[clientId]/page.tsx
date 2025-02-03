@@ -9,6 +9,7 @@ import fa from "react-date-object/locales/persian_fa";
 import axios from "axios";
 import { getCookie } from "cookies-next";
 import toast from "react-hot-toast";
+import { dateConvert } from "@/lib/functions";
 
 interface EditClientPageProps {
   params: {
@@ -42,11 +43,11 @@ const EditClient: React.FC<EditClientPageProps> = ({ params }) => {
           },
         }
       );
-      setClient(response.data[0]);
-      setName(response.data[0].name);
-      setAddress(response.data[0].address);
-      setPhone(response.data[0].phone);
-      setBirthDate(response.data[0].birth_date);
+      setClient(response.data);
+      setName(response.data.name);
+      setAddress(response.data.address);
+      setPhone(response.data.phone);
+      setBirthDate(response.data.birth_date);
     };
 
     getClient(params.clientId);
@@ -136,7 +137,7 @@ const EditClient: React.FC<EditClientPageProps> = ({ params }) => {
             <label>تاریخ تولد</label>
             <div className="w-full">
               <DatePicker
-                placeholder={client.birth_date}
+                placeholder={dateConvert(client.birth_date)}
                 calendarPosition="bottom-right"
                 inputClass="w-full bg-white py-2 rounded-md shadow-sm px-2 mt-2"
                 containerClassName="w-full"

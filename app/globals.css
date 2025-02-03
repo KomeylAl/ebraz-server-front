@@ -117,6 +117,14 @@ html[dir="rtl"] .text-right {
   }
 }
 
+.login {
+  background: url('../app/images/login-back.webp');
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
+  background-position: center;
+}
+
 .dialog-close {
   display: none;
 }

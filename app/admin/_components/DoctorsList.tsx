@@ -1,12 +1,10 @@
 "use client";
 
-import ConfirmDialog from "@/utils/ui/CustomDialog";
 import axios from "axios";
 import { getCookie } from "cookies-next";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
-import { MdDelete, MdEditSquare, MdInsertChart } from "react-icons/md";
+import { MdEditSquare, MdInsertChart } from "react-icons/md";
 import { BeatLoader } from "react-spinners";
 
 export const DoctorsList = () => {
@@ -63,12 +61,12 @@ export const DoctorsList = () => {
         <div className="w-[15%] text-center font-bold">ویرایش</div>
       </div>
       <div className="">
-        {doctors.map((doctor: any) => (
+        {doctors.map((doctor: any, index: any) => (
           <div
             key={doctor.id}
             className="flex items-center justify-between py-4 gap-28 md:gap-0 bg-white p-4 mt-3 rounded-md shadow-md"
           >
-            <div className="w-[5%] text-right">{doctor.id}</div>
+            <div className="w-[5%] text-right">{index + 1}</div>
             <div className="w-[15%] text-right">{doctor.name}</div>
             <div className="w-[15%] text-right">{doctor.phone}</div>
             <div className="w-[15%]">

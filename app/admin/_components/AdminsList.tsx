@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { BeatLoader } from "react-spinners";
+import { BeatLoader, PuffLoader } from "react-spinners";
 import { useRouter } from "next/navigation";
 import { getCookie } from "cookies-next";
 import Link from "next/link";
@@ -31,7 +31,6 @@ export const AdminsList = () => {
       console.log(response.data.code);
 
       if (response.status === 401) {
-        console.log("hhdiuhf");
         router.push("/login");
       }
 
@@ -63,11 +62,11 @@ export const AdminsList = () => {
 
   if (isLoading) {
     return (
-      <div>
-        <BeatLoader
+      <div className="flex items-center justify-center w-full h-fit">
+        <PuffLoader
           className="text-center mt-20 flex items-center justify-center"
           color={"#3fb2f2"}
-          size={30}
+          size={80}
         />
       </div>
     );
