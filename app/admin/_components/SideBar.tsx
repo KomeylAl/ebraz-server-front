@@ -9,14 +9,14 @@ export default async function Sidebar() {
     const user = await getUserData(token?.value)
 
     return (
-        <div className='hidden fixed h-screen w-80 lg:flex flex-col items-center justify-between bg-cyan-700 p-8'>
-            <div className='w-full flex flex-col items-start gap-10'>
-                <h1 className='text-white text-2xl font-bold text-right'>کلینیک ابراز</h1>
+        <div className="h-screen fixed p-6 rounded-sm">
+            <div className='hidden h-full w-80 lg:flex flex-col items-center justify-between bg-white/45 border border-white p-8 backdrop-blur-2xl'>
+                <h1 className='text-2xl font-bold text-right'>کلینیک ابراز</h1>
                 <Navbar user={user} />
-            </div>
-            <p className='text-gray-200'>
+            <p className=''>
                 ebraz-admin
             </p>
+        </div>
         </div>
     )
 }

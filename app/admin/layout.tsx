@@ -23,7 +23,7 @@ export default function AdminLayout({
         <div className="bg-gray-200 bg-opacity-30 w-full h-screen min-h-fit">
           <div className='w-full h-full filter blur-2xl -z-10 fixed' />
           <Sidebar />
-          <div className="lg:pr-80">{children}</div>
+          <div className="px-4 lg:pr-96 lg:pl-12 pt-6 pb-6">{children}</div>
         </div>
       </div>
     </body>

@@ -10,7 +10,7 @@ export async function GET(req: NextRequest, res: NextResponse) {
       {
         method: "GET",
         headers: {
-          "Content-type": "application/json",
+          // "Content-type": "application/json",
           Authorization: `Bearer ${token?.value}`,
         },
       }

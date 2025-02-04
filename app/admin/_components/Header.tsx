@@ -77,8 +77,8 @@ const Header: React.FC<HeaderProps> = ({ pageTitle }) => {
           <Navbar user={user} />
         </div>
       </div>
-      <div className="w-full h-fit p-4">
-        <div className="flex flex-col justify-between bg-white rounded-md w-full h-32 p-6 shadow-md">
+      <div className="w-full h-fit">
+        <div className="flex flex-col justify-between bg-white/45 backdrop-blur-2xl border border-white rounded-sm w-full h-32 p-6">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-3">
             <CgMenuRightAlt

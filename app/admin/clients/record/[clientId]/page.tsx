@@ -48,7 +48,6 @@ const ClientRecord = ({ params }: ClientRecordProps) => {
     companion_name: "",
     companion_phone: "",
     companion_address: "",
-    images: []
   });
 
   const doctorsOptions: any = [];
@@ -128,7 +127,7 @@ const ClientRecord = ({ params }: ClientRecordProps) => {
   };
 
   useEffect(() => {
-    getRecord();
+    // getRecord();
     getClient();
     getAdmins();
     getDoctors();
@@ -187,14 +186,18 @@ const ClientRecord = ({ params }: ClientRecordProps) => {
   
   const handleSubmit = async () => {
 
-    // let ima: any = [];
+    const formDataToSend = new FormData();
 
-    // uploadedImages.forEach((file: any, index: any) => {
-    //   ima.push(`images[${index}]`, file)
-    // })
-    // setFormData((prev: any) => ({ ...prev, images: ima }))
+  // اضافه کردن داده‌های متنی
+  Object.entries(formData).forEach(([key, value]) => {
+    if (key !== "images") {
+      formDataToSend.append(key, value as string);
+    }
+  });
 
-    await axios.post(`/api/record/store/${params.clientId}`, formData)
+    
+
+    await axios.post(`/api/record/store/${params.clientId}`, formDataToSend)
       .then(function (response) {
         console.log(response.data);
       })

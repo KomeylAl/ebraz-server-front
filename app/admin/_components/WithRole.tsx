@@ -21,7 +21,11 @@ const WithRole = ({ allowedRoles, children }: WithRoleProps) => {
   if (!role) {
     return (
       <div className="w-full h-full flex items-center justify-center">
-        <PuffLoader className="" size={60} />
+        <PuffLoader 
+          className="text-center mt-20 flex items-center justify-center"
+          color={"#3fb2f2"}
+          size={80}
+        />
       </div>
     );
   }

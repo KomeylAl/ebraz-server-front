@@ -74,11 +74,11 @@ const Navbar = ({ user }: NavbarProps) => {
             <Link
               key={link.link}
               href={link.link}
-              className={`text-white flex items-center 
+              className={`flex items-center 
                             gap-2 text-lg w-full px-4 py-2
                             ${
                               pathName === link.link
-                                ? "bg-cyan-900 rounded-md"
+                                ? "bg-white/85 rounded-md"
                                 : "bg-transparent"
                             }
                             `}
@@ -91,11 +91,11 @@ const Navbar = ({ user }: NavbarProps) => {
             <Link
             key={link.link}
               href={link.link}
-              className={`text-white flex items-center 
+              className={`flex items-center 
                             gap-2 text-lg w-full px-4 py-2
                             ${
                               pathName === link.link
-                                ? "bg-cyan-900 rounded-md"
+                                ? "bg-white/85 rounded-md"
                                 : "bg-transparent"
                             }
                             `}
